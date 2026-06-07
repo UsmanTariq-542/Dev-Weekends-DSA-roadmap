@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        int size= nums.size();
+        int i=0,j=size-1,k=size-1;
+        vector<int> result(size);
+
+        while(i<=j){
+            int leftsq=pow(nums[i],2);
+            int rightsq=pow(nums[j],2);
+            if(leftsq<=rightsq){
+                result[k]=rightsq;
+                j--;
+            }
+            else{    // leftsq>rightsq
+                result[k]=leftsq;
+                i++;
+            }
+            k--;
+        }
+
+        return result;
+    }
+};
+
+/* 
+It can be solved by first taking square of each element and then sorting nums in O(nLogn) time complexity but can be done in O(n) 
+linearly using two pointers approach.
+
+Approach: simply initialize i to 0 and j to size-1 and k=size -1 indexes and calculate leftsq and rightsq, if rightsq≥leftsq 
+then vector result[k]=rightsq , and decrement j, otherwise if leftsq>rightsq then result[k]=leftsq and increment i variable and 
+at each iteration, k will always be decremented and eventually reach to 0 index.
+*/
