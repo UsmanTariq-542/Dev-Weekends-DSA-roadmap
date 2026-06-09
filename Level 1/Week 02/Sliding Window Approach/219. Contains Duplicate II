@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        unordered_map<int,int> mp;
+        int size = nums.size();
+        for(int i=0;i<size;i++){
+            int n=nums[i];
+            if(mp.find(n)!=mp.end()){  // exist krta ha phle
+                int prev_index = mp[n];
+                if(abs(i-prev_index)<=k) return true;
+            }
+            mp[n]=i;
+        }
+
+        return false;
+    }
+};
