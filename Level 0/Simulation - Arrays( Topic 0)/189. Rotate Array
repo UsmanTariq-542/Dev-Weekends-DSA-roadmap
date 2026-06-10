@@ -1,0 +1,31 @@
+// this approach takes O(n) time and O(n) space taken but next approach 2 will be O(1) space solution.
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int size=nums.size();
+        k= k % size;
+
+        vector<int> result=nums;
+        for(int i=0;i<size;i++){
+            int idx=(i-k+size)%size;
+            nums[i]=result[idx];
+        }
+    }
+};
+
+-------------------------------------------------------
+// Approach 2:
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int size=nums.size();
+        k= k % size;
+
+        reverse(begin(nums),end(nums)); // reverse whole nums array
+
+        reverse(begin(nums),begin(nums)+k);
+
+        reverse(begin(nums)+k,end(nums));
+    }
+};
+
