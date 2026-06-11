@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        int size = s.size();
+        unordered_map<char,char> mp;
+        for(int i=0;i<size;i++){
+            
+            if(mp.find(s[i])==mp.end()){  // not exist yet in our dict
+                bool found=false;
+                for(auto &pair:mp){
+                    if(pair.second==t[i]){
+                        found=true;
+                        break;
+                    }    
+                }
+
+                if(found) return false;
+                mp[s[i]]=t[i];
+            }
+            else{
+                char ch = mp[s[i]]; 
+                if(ch!=t[i]) return false;
+            }
+        }
+
+        return true;
+    }
+};
