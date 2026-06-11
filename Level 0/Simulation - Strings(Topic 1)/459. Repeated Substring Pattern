@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool repeatedSubstringPattern(string s) {
+        int size=s.size();
+        for(int l=size/2;l>=1;l--){
+            if(size%l!=0) continue;   // any number n has 2*sqrt(n) divisors exactly
+                                        
+            int times=size/l;
+            string pattern = s.substr(0,l);
+            string newstr = "";
+            while(times--){
+                newstr+=pattern;
+            }
+
+            if(newstr==s) return true;
+        }
+
+        return false;
+    }
+};
+
+// A better optimization would be to start taking substrings of length n/2 and coming back to 1, instead of traditionally going from 1 till n/2 length.
