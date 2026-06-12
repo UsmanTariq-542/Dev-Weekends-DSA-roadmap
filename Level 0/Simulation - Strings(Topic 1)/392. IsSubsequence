@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        if(s=="") return true;
+        if(t=="") return false;
+        int i=0,size_s=s.size();
+        for(char& ch:t){
+            char target=s[i];
+            if(ch==target){
+                i++;
+            }
+
+            if(i==size_s) return true;
+        }
+
+        return false;
+    }
+};
