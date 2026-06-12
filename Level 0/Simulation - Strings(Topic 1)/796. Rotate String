@@ -1,0 +1,37 @@
+// Approach # 01: rotate function
+class Solution {
+public:
+    bool rotateString(string s, string goal) {
+        int size_s = s.size(),size_g = goal.size();
+        if(size_s!= size_g) return false;
+
+        for(int i=0;i<size_s;i++){
+            if(s==goal) return true;
+            rotate(begin(s),begin(s)+1,end(s));
+        }
+
+        return false;
+    }
+};
+
+// rotate function(start_of_range,which pos will become starting position of range,end_of_range)
+
+===================================================================================================
+
+// Approach # 02: string concatenation
+class Solution {
+public:
+    bool rotateString(string s, string goal) {
+        int size_s = s.size(),size_g = goal.size();
+        if(size_s!= size_g) return false;
+
+        string concatenated=s+s;
+        if((concatenated).find(goal) != string::npos){
+            return true;  //can also write <size_s bcz find returns an index of start pos of goal.
+        }
+
+        return false;
+    }
+};
+
+// concatenated will contain all rotations of original string s, thats why...
