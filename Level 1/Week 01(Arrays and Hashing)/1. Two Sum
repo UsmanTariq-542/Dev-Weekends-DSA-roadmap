@@ -1,3 +1,4 @@
+// Approach 01: using nested loop and time complexity will be O(n**2) and space is constant.
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
@@ -18,5 +19,27 @@ public:
         }
 
         return {a,b};
+    }
+};
+
+==================================================================================
+// Approach 02: using unordered_map and time and space complexity will be O(n) each.
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int,int> mp;
+        int size = nums.size();
+
+        for(int i=0;i<size;i++){
+            int complement = target-nums[i];
+            if(mp.find(complement)!=mp.end()){   // complement seen before already
+                return {mp[complement],i};
+            }
+            else{
+                mp[nums[i]]=i;
+            }
+        }
+
+        return {};//since each input would have exactly one solution, so control never reached here
     }
 };
