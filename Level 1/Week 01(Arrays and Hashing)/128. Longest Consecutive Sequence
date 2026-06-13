@@ -1,0 +1,45 @@
+/*
+class Solution {
+public:
+// Brute force technique, but didnot accept because time complexity should be O(n) only.
+    int longestConsecutive(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int size=nums.size(),lastSmallest=INT_MIN,currCount=1,maxCount=1;
+        for(int i=0;i<size;i++){
+            if(nums[i]-1==lastSmallest){
+                currCount++;
+                lastSmallest=nums[i];
+            }
+
+            else if(nums[i]!=lastSmallest){
+                currCount=1;
+                lastSmallest=nums[i];
+            } 
+            maxCount=max(maxCount,currCount); // if nums[i]==lastSmallest, we do nothing
+        }
+        
+        return maxCount;
+    }
+};
+
+*/
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_map<int,int> mp;
+        int size=nums.size(),maxLen=0;
+        for(int num: nums){   // if we intend to pass by reference then for(int& num:nums)
+            if(!mp[num]){  // means if mp[num] is not initialized yet then
+                mp[num]=mp[num-1]+mp[num+1]+1; //island example in solutions akhilesh muchala
+                mp[num-mp[num-1]]=mp[num]; // if mp[num-1] exist then its val updates
+                mp[num+mp[num+1]]=mp[num];
+                maxLen=max(maxLen,mp[num]);// here we just correctly keep corresponding
+                // attached islands count of both extreme positions.
+            }
+        }
+
+        return maxLen;
+    }
+};
+
