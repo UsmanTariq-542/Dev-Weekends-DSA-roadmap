@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> result;
+        for(int& n1:nums1){
+            bool start = false, found = false;
+            for(int& n2:nums2){
+                if(n2==n1){
+                    start = true;
+                    continue;
+                }
+
+                if(start){
+                    if(n2>n1){
+                        result.push_back(n2);
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            if(!found){
+                result.push_back(-1);
+            }
+        }
+
+        return result;
+    }
+};
