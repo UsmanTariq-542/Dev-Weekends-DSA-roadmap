@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> v1,v2;
+        // pushing nums1 into set
+        set<int> st1(nums1.begin(),nums1.end());
+
+        // pushing nums2 into set
+        set<int> st2(nums2.begin(),nums2.end());
+
+        /*
+        set_difference will find unique elements in sorted set1 which are not in sorted set2 and place them in a container using back_inserter in a sorted order
+        */
+
+        set_difference(begin(st1),end(st1),begin(st2),end(st2),back_inserter(v1));
+
+        set_difference(begin(st2),end(st2),begin(st1),end(st1),back_inserter(v2));
+
+        return {v1,v2};
+
+
+
+        
+
+    }
+};
