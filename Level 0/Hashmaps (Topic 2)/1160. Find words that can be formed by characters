@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int countCharacters(vector<string>& words, string chars) {
+        unordered_map<char,int> mp;
+        int result = 0;
+
+        for(char& ch:chars){
+            mp[ch]++;
+        }
+
+        for(string& word:words){
+            unordered_map<char,int> copy = mp;
+            bool ok=true;
+            for(char& ch:word){
+                copy[ch]--;
+                if(copy[ch]<0){
+                    ok = false;
+                    break;
+                }
+            }
+            if(ok){
+                result+=word.length();
+            }
+        }
+
+        return result;
+    }
+};
