@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int currsum = 0,size = nums.size();
+        for(int& n:nums){
+            currsum += n;
+        }
+
+        int idealsum = size * (size+1);
+        idealsum/=2;
+
+        return idealsum-currsum;
+    }
+};
