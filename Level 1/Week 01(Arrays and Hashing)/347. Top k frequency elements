@@ -1,0 +1,81 @@
+// Approach # 01: 
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        typedef pair<int,int> P;
+
+        unordered_map<int,int> mp;
+        for(int& n:nums){
+            mp[n]++;
+        }
+
+        // by default is maxheap, and declared as priority_queue<int> 
+        priority_queue<P,vector<P>,greater<P>> pq;  // minheap-> smallest element on top
+
+        for(auto& it:mp){
+            int val = it.first;
+            int freq = it.second;
+
+            pq.push({freq,val});
+
+            if(pq.size()>k){
+                pq.pop(); // smallest frequency element will be popped out.
+            }
+        }
+
+        // now making a result vector
+        vector<int> result;
+
+        while(!pq.empty()){
+            result.push_back(pq.top().second);
+            pq.pop();
+        }
+
+        return result;
+    }
+};
+
+
+===========================================================================
+
+// Approach # 2: using bucket sort, treating indexes as frequencies and bucket[i] as elements, bucket[i] means element having i frequencies.
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int,int> mp;
+        for(int& n:nums){
+            mp[n]++;
+        }
+
+        int size = nums.size();
+        vector<vector<int>> bucket(size+1);// bucket[i] is element having freq i.
+
+        for(auto& it:mp){
+            int val = it.first, freq = it.second;
+            bucket[freq].push_back(val);
+        }
+
+        // now we keep iterate from last index bcz index represent frequencies till find k elements.
+
+        vector<int> result;
+
+        for(int i=size;i>=0;i--){
+            if(bucket[i].size()==0){
+                continue;
+            }
+
+            while(bucket[i].size()>0 && k>0){
+                result.push_back(bucket[i].back());
+                bucket[i].pop_back();  
+                k--;
+            }
+
+            if(k==0){
+                break;  // outer loop ko early break krna k lea
+            }
+        }
+
+        return result;
+        
+    }
+};
