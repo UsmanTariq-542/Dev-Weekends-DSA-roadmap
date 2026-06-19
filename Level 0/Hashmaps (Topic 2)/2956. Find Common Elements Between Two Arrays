@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<int> findIntersectionValues(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int,int> mp1,mp2;
+        for(int& n:nums1){
+            mp1[n]++;
+        }
+
+        for(int& n:nums2){
+            mp2[n]++;
+        }
+
+        int ans1=0,ans2=0;
+        // for finding ans1
+        for(auto& it:mp1){
+            int num = it.first;
+            int freq1 = it.second;
+
+            if(mp2.find(num)!=mp2.end()){
+                ans1+=(freq1);
+            }
+        }
+
+        // for finding ans2
+        for(auto& it:mp2){
+            int num = it.first;
+            int freq1 = it.second;
+
+            if(mp1.find(num)!=mp1.end()){
+                ans2+=(freq1);
+            }
+        }
+
+        return {ans1,ans2};
+
+
+    }
+};
