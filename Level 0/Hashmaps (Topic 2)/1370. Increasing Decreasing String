@@ -1,0 +1,39 @@
+class Solution {
+public:
+    string sortString(string s) {
+        int size_s = s.size();
+        string result;
+        map<char,int> mp;
+
+        for(char& ch:s){
+            mp[ch]++;
+        }
+
+
+        while(result.size()<size_s){
+            // step 1 to 3(increasing)
+            for(auto& it:mp){
+                char ch = it.first;
+                int freq = it.second;
+
+                if(freq>0){
+                    result.push_back(ch);
+                    mp[ch]--;
+                }
+            }
+
+            // step 4 to 6(decreasing)
+            for(auto it=mp.rbegin(); it!= mp.rend(); it++){
+                char ch = it->first;
+                int freq = it->second;
+
+                if(freq>0){
+                    result.push_back(ch);
+                    mp[ch]--;
+                }
+            }
+        }
+        
+        return result;
+    }
+};
