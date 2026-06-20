@@ -1,0 +1,35 @@
+class Solution {
+public:
+    typedef pair<char,int> P;
+    string frequencySort(string s) {
+        string result = "";
+        vector<P> vec(123);  // 123 size so 0 to 122 indexes cover a to z and A to Z.
+
+        for(char& ch:s){
+            int freq = vec[ch].second;  // vec[ch] is converted to vec[ascii value of ch]
+            vec[ch]={ch,freq+1};
+        }
+
+        auto lambda = [&](P &p1,P &p2){
+            return p1.second>p2.second;
+        };
+
+
+        // sorting based on freq of characters so had to write lambda function 
+        sort(begin(vec),end(vec),lambda);
+
+        // forming result string
+        for(int i=0; i<123; i++){
+            if(vec[i].second>0){
+                char ch = vec[i].first;
+                int freq = vec[i].second;
+
+                string temp = string(freq,ch);
+                result+=temp;
+            }
+            
+        }
+
+        return result;
+    }
+};
