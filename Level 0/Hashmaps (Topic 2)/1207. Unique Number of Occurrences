@@ -1,0 +1,44 @@
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+        unordered_map<int,int> mp;
+        unordered_set<int> st;
+        for(int& n:arr){
+            mp[n]++;
+        }
+
+        for(auto& it:mp){
+            int freq = it.second;
+            if(st.find(freq)!=st.end()){
+                return false;
+            }
+            st.insert(freq);
+        }
+
+        return true;
+    }
+};
+
+=====================================================================
+Approach 02: vector of int of size 2001 and then sorting and checking duplicate 
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+        vector<int> nums(2001,0);  // bcz arr values range is -1000 to 1000 
+
+        int size = arr.size();
+        for(int i=0; i<size;i++){
+            int num = arr[i];
+            nums[num+1000]++;
+        }
+
+        sort(begin(nums),end(nums));
+
+        for(int i=1;i<2001;i++){
+            if(nums[i]!=0 && nums[i]==nums[i-1]){
+                return false;
+            }
+        }
+        return true;
+    }
+};
