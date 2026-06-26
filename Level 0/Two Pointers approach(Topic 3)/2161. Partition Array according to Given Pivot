@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> pivotArray(vector<int>& nums, int pivot) {
+        int ltpivot =0, eqpivot=0, gtpivot=0;
+        int size = nums.size();
+        for(int i=0; i<size;i++){
+            if(nums[i]==pivot){
+                eqpivot++;
+            }
+            else if(nums[i]<pivot){
+                ltpivot++;
+            }
+            else gtpivot++;
+        }
+
+        int left=0,mid=ltpivot,right=size-gtpivot;
+
+        vector<int> result(size);
+        for(int i=0;i<size;i++){
+            if(nums[i]<pivot) result[left++]=nums[i];
+            else if(nums[i]==pivot) result[mid++]=nums[i];
+            else result[right++]=nums[i];
+        }
+
+        return result;
+    }
+};
+
+Time complexity is O(n) , double pass solution
+and space is O(n) but needed for result.
