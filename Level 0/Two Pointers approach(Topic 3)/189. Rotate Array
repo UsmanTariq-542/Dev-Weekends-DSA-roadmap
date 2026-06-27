@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int size = nums.size();
+        k = k%size;
+        vector<int> temp=nums;
+
+        for(int i=0; i<size ;i++){
+            int idx = (i-k+size)%size;
+            nums[i]= temp[idx];
+        }
+
+    }
+};
+
+// Approach 02: 
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int size=nums.size();
+        k= k % size;
+
+        reverse(begin(nums),end(nums)); // reverse whole nums array
+
+        reverse(begin(nums),begin(nums)+k);
+
+        reverse(begin(nums)+k,end(nums));
+
+    }
+};
