@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string largestMerge(string word1, string word2) {
+        int n1=word1.size(),n2=word2.size();
+        string merge="";
+
+        int i=0,j=0;
+
+        while(i<n1 || j<n2){
+            bool takefrom1;
+            if(i>=n1) takefrom1=false;  // means word1 fully exhausted.
+
+            else if(j>=n2) takefrom1=true; // means word2 fully exhausted.
+
+            else{  // both i and j are at valid indices
+                takefrom1 = (word1.substr(i)>word2.substr(j));  // substr of word1 from index i till end lexographically.
+
+            }
+
+            if (takefrom1){
+                merge.push_back(word1[i++]);
+            }
+            else{
+                merge.push_back(word2[j++]);
+            }
+        }
+
+        return merge;
+    }
+};
