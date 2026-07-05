@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<int> getLeftMaxArray(vector<int>& height,int& size){
+        vector<int> leftMax(size);
+        leftMax[0]=height[0];
+
+        for(int i=1;i<size;i++){
+            leftMax[i]=max(leftMax[i-1],height[i]);
+        }
+
+        return leftMax;
+    }
+
+    vector<int> getRightMaxArray(vector<int>& height,int& size){
+        vector<int> rightMax(size);
+        rightMax[size-1]=height[size-1];
+
+        for(int i=size-2;i>=0;i--){
+            rightMax[i]=max(rightMax[i+1],height[i]);
+        }
+
+        return rightMax;
+    }
+
+
+    int trap(vector<int>& height) {
+        int size = height.size();
+        int result=0;
+        vector<int> leftMax = getLeftMaxArray(height,size);
+
+        vector<int> rightMax = getRightMaxArray(height,size);
+
+        for(int i=0;i<size;i++){
+            int h = min(leftMax[i],rightMax[i])-height[i];
+            result+= h;
+        }
+
+        return result;
+    }
+};
