@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int size = s.size();
+        if(size<=1) return size;
+
+        int i=0,j=0;
+        int maxlen=-1,len=0;
+        unordered_map<char,int> mp;
+
+        for(int i=0;i<256;i++){
+            mp[(char)i]=-1;  
+        }
+
+
+        while(j<size){
+            if(mp[s[j]]==-1){   // phle kbi ni dekha mtlb unique ha
+                mp[s[j]]=j;
+            }
+            else{    // already present in map so i ko acc set krna ha.
+                i=max(i,mp[s[j]]+1);
+                mp[s[j]]=j;
+            }
+
+            len = j-i+1;
+            maxlen=max(len,maxlen);
+
+            j++;
+        }
+
+        return maxlen;
+    }
+};
