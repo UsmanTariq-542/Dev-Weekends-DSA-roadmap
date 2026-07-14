@@ -1,0 +1,42 @@
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        if(t.length()>s.length()) return "";
+
+        unordered_map<char,int> mp;
+        for(char& ch:t){
+            mp[ch]++;
+        }
+
+        string result="";
+        int windowSize = s.size()+1;
+        int start_i=0;
+
+        int i=0,j=0,size=s.size(),countReq=t.size();
+        while(j<size){
+            if(mp[s[j]]>0){
+                countReq--;
+            }
+            mp[s[j]]--;
+
+            while(countReq==0){
+                int currWindowSize = j-i+1;
+                if(currWindowSize<windowSize){
+                    windowSize = currWindowSize;
+                    start_i=i;
+                }
+
+                mp[s[i]]++;
+                if(mp[s[i]]>0){
+                    countReq++;
+                }
+
+                i++;
+            }
+
+            j++;
+        }
+
+        return windowSize ==size+1? "": s.substr(start_i,windowSize);
+    }
+};
