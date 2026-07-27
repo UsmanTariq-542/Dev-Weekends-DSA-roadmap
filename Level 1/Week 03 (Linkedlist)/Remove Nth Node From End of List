@@ -1,0 +1,75 @@
+// 19. Remove Nth Node From End of List
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+// Approach 1: Two-pass (count length, then remove)
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* curr=head;
+        int L=0;
+
+        while(curr){
+            L++;
+            curr=curr->next;
+        }
+
+        if(L==n){  // head change ho rha ha yha
+            ListNode* temp=head->next;
+            delete(head);
+            return temp;
+        }
+
+        int travel_front = L-n;  // 3
+
+        ListNode* prev=NULL;
+        curr=head;
+        while(travel_front--){
+            prev=curr;
+            curr=curr->next;
+        }
+
+        prev->next = curr->next;
+        delete(curr);
+
+        return head;
+    }
+};
+
+// Approach 2: One-pass (two pointers, n-gap technique)
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* temp=head;
+        while(n--){
+            temp=temp->next;
+        }
+
+        if(temp==NULL){  // means n equals size so need to change head
+            ListNode* futureHead=head->next;
+            delete(head);
+            return futureHead;
+        }
+
+        ListNode* prev = head;
+        while(temp && temp->next){
+            prev=prev->next;
+            temp=temp->next;
+        }
+
+        ListNode* toRemove= prev->next;
+        prev->next = toRemove->next;
+
+        delete(toRemove);
+        return head;
+    }
+};
