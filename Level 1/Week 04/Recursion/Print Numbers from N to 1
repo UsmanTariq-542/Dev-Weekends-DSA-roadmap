@@ -1,0 +1,17 @@
+#include <iostream>
+using namespace std;
+
+void printNoInReverseOrder(int start, int n){
+    if(start>n) return;
+    
+    printNoInReverseOrder(start+1,n);
+    cout<<start<<" ";
+}
+
+int main() {
+    int n;
+    cout<<"Enter value of n: ";
+    cin>>n;
+    printNoInReverseOrder(1,n);
+    
+}
