@@ -1,0 +1,18 @@
+#include <iostream>
+using namespace std;
+
+void printNoUsingRecursion(int start, int n){
+    if(start>n) return;
+    
+    cout<<start<<" ";
+    printNoUsingRecursion(start+1,n);
+}
+
+int main() {
+    // print no from 1 to n using recursion
+    int n;
+    cout<<"Enter value of n to print no till that: ";
+    cin>>n;
+    int i=1;
+    printNoUsingRecursion(i,n);
+}
