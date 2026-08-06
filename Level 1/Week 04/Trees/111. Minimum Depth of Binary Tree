@@ -9,6 +9,34 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+// BFS solution
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if(!root) return 0;
+        queue<TreeNode*> que;
+        que.push(root);
+        int result=1;
+        while(!que.empty()){
+            int n=que.size();
+            TreeNode* node=NULL;
+            while(n--){
+                node=que.front();
+                que.pop();
+                if(node->left==NULL && node->right==NULL){
+                    return result;
+                }
+                if(node->left) que.push(node->left);
+                if(node->right) que.push(node->right);
+            }
+            result++;
+        }
+        return -1;
+    }
+};
+
+// DFS (recursive) solution
 class Solution {
 public:
     int minDepth(TreeNode* root) {
