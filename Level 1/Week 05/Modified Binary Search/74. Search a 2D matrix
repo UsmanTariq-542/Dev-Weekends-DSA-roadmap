@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool binarySearch(vector<int>& nums, int target){
+        int left=0, right=nums.size()-1;
+        while(left<=right){
+            int mid=left+(right-left)/2;
+
+            if(nums[mid]==target) return true;
+            else if(nums[mid]>target) right=mid-1;
+            else left=mid+1;
+        }
+
+        return false;
+    }
+
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int m=matrix.size();
+        int n=matrix[0].size();
+
+        int top=0,bottom=m-1;
+        while(top<=bottom){
+            int mid=top+(bottom-top)/2;
+
+            int num = matrix[mid][0];
+            if(num==target) return true;
+
+            else if(num>target) bottom = mid-1;
+            else top=mid+1;
+        }
+
+        if(bottom==-1) return false;  // matrix k first elem s b chota ha target
+
+        return binarySearch(matrix[bottom],target);
+    }
+};
