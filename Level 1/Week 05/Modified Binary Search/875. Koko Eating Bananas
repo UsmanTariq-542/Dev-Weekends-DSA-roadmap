@@ -1,0 +1,37 @@
+class Solution {
+public:
+    bool canFinish(vector<int>& piles,int k,int maxhrs){
+        long long hrs=0;
+        for(int& n:piles){ 
+            hrs+=n/k;
+            if(n%k!=0) hrs+=1;
+        }
+
+        if(hrs<=maxhrs) return true;
+        return false;
+    }
+
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int left=1;
+        int right = -1;
+        int size = piles.size();
+
+        for(int i=0;i<size;i++){
+            right= max(right,piles[i]);
+        }
+
+        while(left<=right){
+            int mid = left+(right-left)/2;
+            bool canEat = canFinish(piles,mid,h);
+            if(canEat){
+                right=mid-1;
+            }
+            else{
+                left=mid+1;
+            }
+        }
+
+        return left;
+
+    }
+};
