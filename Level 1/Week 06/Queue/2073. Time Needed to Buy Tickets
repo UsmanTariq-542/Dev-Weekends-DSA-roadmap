@@ -1,0 +1,48 @@
+// Approach 1: Queue Simulation
+class Solution {
+public:
+    int timeRequiredToBuy(vector<int>& tickets, int k) {
+        int size = tickets.size();
+        int result=0;
+        queue<int> que;
+        
+        for(int i =0; i<size;i++){
+            que.push(tickets[i]);
+        }
+
+        int temp = k;
+        while(tickets[k]!=0){
+            size = que.size();
+            int front = que.front();
+            que.pop();
+            if(front>0){
+                result++;
+                front--;
+                if(front>0) que.push(front);
+                if(temp==0) tickets[k]--;
+            }
+            temp==0?temp=size-1:temp--;
+        }
+
+        return result;
+    }
+};
+
+// Approach 2: Math (O(n), no simulation)
+class Solution {
+public:
+    int timeRequiredToBuy(vector<int>& tickets, int k) {
+        int size = tickets.size();
+        int result=0;
+        for(int i=0;i<size;i++){
+            if(i<=k){
+                result+=min(tickets[i],tickets[k]);
+            }
+            else{
+                result+=min(tickets[i],tickets[k]-1);
+            }
+        }
+
+        return result;
+    }
+};
