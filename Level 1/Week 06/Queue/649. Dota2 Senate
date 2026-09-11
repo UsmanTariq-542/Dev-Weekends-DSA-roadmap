@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string predictPartyVictory(string senate) {
+        int size = senate.size();
+
+        queue<int> radiant, dire;
+        for(int i=0; i<size; i++){
+            if(senate[i]=='R'){
+                radiant.push(i);
+            }
+            else{
+                dire.push(i);
+            }
+        }
+
+        while(!radiant.empty() && !dire.empty()){
+            int rPos = radiant.front();
+            int dPos = dire.front();
+
+            radiant.pop();
+            dire.pop();
+
+            if(rPos<dPos){
+                // radiant senator will ban dire senator which we already popped both but radiant ki turn dubara ae gi next round m b
+                radiant.push(rPos+size);
+            }
+            else{
+                dire.push(dPos+size);
+            }
+        }
+
+        return radiant.empty()? "Dire": "Radiant";
+         
+    }
+};
