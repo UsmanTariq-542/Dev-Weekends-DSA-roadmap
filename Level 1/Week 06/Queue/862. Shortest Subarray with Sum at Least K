@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int shortestSubarray(vector<int>& nums, int k) {
+        int size = nums.size();
+        deque<int> deq;  // stores index in monotonic increasing order of cumulative sum.
+
+        vector<long long> cumulativeSum(size,0);
+        int minL = size+1;
+        int j=0;
+        while(j<size){
+            if(j==0){
+                cumulativeSum[j] = nums[j];
+            }
+            else{
+                cumulativeSum[j] = cumulativeSum[j-1]+nums[j];
+            }
+
+            if(cumulativeSum[j]>=k){
+                minL = min(minL, j+1);
+            }
+
+            // need to shrink the window or not
+            while(!deq.empty() && cumulativeSum[j]-cumulativeSum[deq.front()]>=k){
+                minL = min(minL, j-deq.front());
+                deq.pop_front();
+            }
+
+            while(!deq.empty() && cumulativeSum[j]<=cumulativeSum[deq.back()]){
+                deq.pop_back();
+            }
+
+            deq.push_back(j);
+
+            j++;
+        }
+
+        return minL==size+1? -1: minL;
+
+    }
+};
