@@ -1,0 +1,59 @@
+class Solution {
+public:
+    vector<int> deckRevealedIncreasing(vector<int>& deck) {
+        int n = deck.size();
+        vector<int> result(n,0);
+
+        sort(begin(deck),end(deck));
+        bool skip = false;
+        int i=0, j=0;  // i deck k lea and j result p traverse k lea
+
+        while(i<n){
+            if(result[j]==0){
+                if(skip==false){
+                    result[j]=deck[i++];
+                }
+                
+                skip = !skip;  // alternate krna k lea
+            }
+
+            j=(j+1)%n;
+        }
+
+        return result;
+
+    }
+};
+
+=======================
+Approach2:
+class Solution {
+public:
+    vector<int> deckRevealedIncreasing(vector<int>& deck) {
+        int n = deck.size();
+        vector<int> result(n,0);
+
+        sort(begin(deck),end(deck));
+        queue<int> que; 
+
+        for(int i=0;i<n;i++){
+            que.push(i);
+        }
+
+        int j=0;
+
+        for(int i=0;i<n;i++){
+            int idx = que.front();
+            que.pop();
+            result[idx]=deck[i];
+
+            if(!que.empty()){
+                que.push(que.front());
+                que.pop();
+            }
+        }
+
+        return result;
+
+    }
+};
